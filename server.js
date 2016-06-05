@@ -1,7 +1,16 @@
 var http = require("http");
 
-http.createServer(function(require, response) {
-    response.writeHead(200, { "Content-type": "text/html" });
-    response.write("Hello World");
-    response.end();
-}).listen(9090);
+var message = "Hello word";
+
+function start(port = 9090) {
+    var server = http.createServer(function(require, response) {
+        response.writeHead(200, { "Content-type": "text/html" });
+        response.write(message);
+        console.log(message);
+        response.end();
+    });
+    server.listen(port);
+    console.log("...server up!");
+}
+
+exports.start = start;
