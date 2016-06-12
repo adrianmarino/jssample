@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------------------
 var http = require("http");
 var common = require("./common");
+var net = require("./net");
 
 
 //-----------------------------------------------------------------------------
@@ -16,7 +17,7 @@ var logger = common.Logger();
 //-----------------------------------------------------------------------------
 function run(router, port = 8080) {
     http.createServer(function(request, response) {
-        router.route(new common.Request(request), response);
+        router.route(net.Request(request), net.Response(response));
     }).listen(port);
     router.print_routes();
     logger.info("Server listening in port " + port);

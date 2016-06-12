@@ -1,7 +1,6 @@
 //-----------------------------------------------------------------------------
 // Requires
 //-----------------------------------------------------------------------------
-var url = require("url");
 var process = require("process");
 
 
@@ -24,17 +23,6 @@ function Map(hash) {
         return map.filter(function(key, value) { return !reject(key, value); });
     };
     return map;
-}
-
-function Request(request) {
-    return {
-        "request"   : request,
-        "method"    : function() { return this.request.method; },
-        "uri"       : function() { return url.parse(this.request.url).pathname; },
-        "params"    : function() { return url.parse(this.request.url, true).query; },
-        "param"     : function(name) { return this.params()[name]; },
-        "toString"  : function() { return this.method() + " " + this.uri(); }
-    };
 }
 
 function Logger() {
@@ -68,7 +56,6 @@ function exist_message(message) {
 //-----------------------------------------------------------------------------
 // Exports
 //-----------------------------------------------------------------------------
-exports.Request = Request;
 exports.Map = Map;
 exports.Logger = Logger;
 exports.date_to_string = date_to_string;

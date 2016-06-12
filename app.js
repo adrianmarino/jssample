@@ -1,9 +1,10 @@
 //-----------------------------------------------------------------------------
 // Requires
 //-----------------------------------------------------------------------------
-var server = require("./server");
-var router = require("./router");
-var common = require("./common");
+var server  = require("./server");
+var router  = require("./router");
+var common  = require("./common");
+var view    = require("./view");
 var process = require("child_process");
 
 
@@ -37,6 +38,18 @@ router.handle("get", "/sleep", function(request, response) {
     setInterval(function() { response.end(); }, timeout);
 });
 
+router.handle("get", "/index", function(request, response) {
+    response.write(view.create_note({action: "/note"}));
+    response.end();
+});
+
+router.handle("post", "/note", function(request, response) {
+    request.get_fields("utf8", function(fields) {
+        response.writeJson(fields);
+        logger.info(JSON.stringify(fields));
+        response.end();
+    });
+});
 
 //-----------------------------------------------------------------------------
 // Main

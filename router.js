@@ -2,7 +2,7 @@
 // Requires
 //-----------------------------------------------------------------------------
 var common = require("./common");
-
+var net = require("./net");
 
 //-----------------------------------------------------------------------------
 // Attributes
@@ -44,7 +44,9 @@ function print_handlers() {
 }
 
 function find_handler(request) {
-    return handlers[request.method()][request.uri()];
+    var uri = request.uri();
+    if(uri == "/") uri += "index";
+    return handlers[request.method()][uri];
 }
 
 function execute_handler(handler, request, response) {
