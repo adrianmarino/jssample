@@ -47,7 +47,7 @@ function find_handler(request) {
 }
 
 function execute_handler(handler, request, response) {
-    logger.info("Request: " + request);
+    logger.info("Request to " + request);
     response.writeHead(200, { "Content-type": "text/html" });
     handler(request, response);
 }

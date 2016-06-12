@@ -30,6 +30,10 @@ function Request(request) {
         "request"   : request,
         "method"    : function() { return this.request.method; },
         "uri"       : function() { return url.parse(this.request.url).pathname; },
+        "params"    : function() {
+            var parts = url.parse(this.request.url, true);
+            return parts.query;
+        },
         "toString"  : function() { return this.method() + " " + this.uri(); }
     };
 }
@@ -45,11 +49,6 @@ function Logger() {
     };
 }
 
-function sleep(milliSeconds) {  
-    var startTime = new Date().getTime();
-    while (new Date().getTime() < startTime + milliSeconds); 
-}
-
 function date_to_string(date) { return date.toISOString().replace(/T/, ' ').replace(/\..+/, ''); }
 
 
@@ -60,4 +59,3 @@ exports.Request = Request;
 exports.Map = Map;
 exports.Logger = Logger;
 exports.date_to_string = date_to_string;
-exports.sleep = sleep;
