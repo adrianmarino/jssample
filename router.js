@@ -17,8 +17,7 @@ var handlers = common.Map({
 //-----------------------------------------------------------------------------
 function route(request, response) {
     var handler = find_handler(request);
-    handler ? execute_handler(handler, request, response) : write_handler_not_found_error(request, response);  
-    response.end();
+    typeof handler === 'function' ? execute_handler(handler, request, response) : write_handler_not_found_error(request, response);
 }
 
 function handle(method, url, handler) {
@@ -52,7 +51,8 @@ function execute_handler(handler, request, response) {
 
 function write_handler_not_found_error(request, response) {
     response.writeHead(404, { "Content-type": "text/html" });
-    logger.error(request + " not found!");
+    logger.error("Not found handler to " + request);
+    response.end();
 }
 
 //-----------------------------------------------------------------------------

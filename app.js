@@ -6,6 +6,7 @@ var router = require("./router");
 //-----------------------------------------------------------------------------
 router.handle("get", "/hello", function(request, response) {
     response.write("Hello!");
+    response.end();
 });
 
 
