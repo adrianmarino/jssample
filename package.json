@@ -1,0 +1,19 @@
+{
+    "name": "example-application",
+    "version": "0.0.1",
+    "author": {
+        "name": "Adrian Norberto Marino",
+        "email": "adrianmarino@gmail.com"
+    },
+    "repository": {
+        "type": "git",
+        "url": "http://github.com/adrianmarino/example-app"
+    },
+    "description": "An example application",
+    "dependencies": {
+    },
+    "license": "MIT",
+    "scripts": {
+        "start": "node app.js"
+    }
+}

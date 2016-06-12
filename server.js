@@ -1,12 +1,27 @@
 var http = require("http");
+var common = require("./common");
 
-function start(router, port = 9090) {
-    var server = http.createServer(function(require, response) {
-        router.route(require, response);
+
+//-----------------------------------------------------------------------------
+// Attributes
+//-----------------------------------------------------------------------------
+var logger = common.Logger();
+
+//-----------------------------------------------------------------------------
+// Public functions
+//-----------------------------------------------------------------------------
+function run(router, port = 8080) {
+    var server = http.createServer(function(request, response) {
+        router.route(new common.Request(request), response);
     });
 
     server.listen(port);
-    console.log("...server up!");
+    router.print_routes();
+    logger.info("Server listening in port " + port);
 }
 
-exports.start = start;
+
+//-----------------------------------------------------------------------------
+// Exports
+//-----------------------------------------------------------------------------
+exports.run = run;

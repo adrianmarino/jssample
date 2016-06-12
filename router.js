@@ -1,24 +1,63 @@
-var url = require("url");
+var common = require("./common");
 
-var Handlers = {};
 
-function getUri(request) { return url.parse(request.url).pathname; }
+//-----------------------------------------------------------------------------
+// Attributes
+//-----------------------------------------------------------------------------
+var logger = common.Logger();
+var handlers = common.Map({ 
+    "GET": common.Map(), 
+    "PUT": common.Map(),
+    "POST": common.Map(),
+    "DELETE": common.Map()
+});
 
+//-----------------------------------------------------------------------------
+// Public functions
+//-----------------------------------------------------------------------------
 function route(request, response) {
-    var uri = getUri(request);
-    var handler = Handlers[uri];
-    if(handler) {
-        console.log("route to " + uri);
-        response.writeHead(200, { "Content-type": "text/html" });
-        handler(require, response);
-    } else {
-        response.writeHead(404, { "Content-type": "text/html" });
-        response.write(uri + ": Not Found!");  
-    }
+    var handler = find_handler(request);
+    handler ? execute_handler(handler, request, response) : write_handler_not_found_error(request, response);  
     response.end();
 }
 
-function handler(url, handler) { Handlers[url] = handler; }
+function handle(method, url, handler) {
+    handlers[method.toUpperCase()][url] = handler;
+}
 
+function print_routes() {
+    logger.info("Routes:");
+    handlers.reject(hasntUris()).forEach(print_handlers());
+}
+
+
+//-----------------------------------------------------------------------------
+// Private functions
+//-----------------------------------------------------------------------------
+function hasntUris() { return function(method, uris) { return uris.isEmpty() }; }
+
+function print_handlers() {
+    return function(method, uris) { uris.forEach(function(uri) { logger.info("--> " + method + " " + uri); }); };
+}
+
+function find_handler(request) {
+    return handlers[request.method()][request.uri()];
+}
+
+function execute_handler(handler, request, response) {
+    logger.info("Request: " + request);
+    response.writeHead(200, { "Content-type": "text/html" });
+    handler(request, response);
+}
+
+function write_handler_not_found_error(request, response) {
+    response.writeHead(404, { "Content-type": "text/html" });
+    logger.error(request + " not found!");
+}
+
+//-----------------------------------------------------------------------------
+// Exports
+//-----------------------------------------------------------------------------
 exports.route = route;
-exports.handler = handler;
+exports.handle = handle;
+exports.print_routes = print_routes;
