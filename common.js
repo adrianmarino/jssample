@@ -1,3 +1,6 @@
+//-----------------------------------------------------------------------------
+// Requires
+//-----------------------------------------------------------------------------
 var url = require("url");
 
 
@@ -42,10 +45,11 @@ function Logger() {
     };
 }
 
+function sleep(milliSeconds) {  
+    var startTime = new Date().getTime();
+    while (new Date().getTime() < startTime + milliSeconds); 
+}
 
-//-----------------------------------------------------------------------------
-// Private functions
-//-----------------------------------------------------------------------------
 function date_to_string(date) { return date.toISOString().replace(/T/, ' ').replace(/\..+/, ''); }
 
 
@@ -55,3 +59,5 @@ function date_to_string(date) { return date.toISOString().replace(/T/, ' ').repl
 exports.Request = Request;
 exports.Map = Map;
 exports.Logger = Logger;
+exports.date_to_string = date_to_string;
+exports.sleep = sleep;
