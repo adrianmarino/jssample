@@ -30,10 +30,8 @@ function Request(request) {
         "request"   : request,
         "method"    : function() { return this.request.method; },
         "uri"       : function() { return url.parse(this.request.url).pathname; },
-        "params"    : function() {
-            var parts = url.parse(this.request.url, true);
-            return parts.query;
-        },
+        "params"    : function() { return url.parse(this.request.url, true).query; },
+        "param"     : function(name) { return this.params()[name]; },
         "toString"  : function() { return this.method() + " " + this.uri(); }
     };
 }
@@ -41,16 +39,23 @@ function Request(request) {
 function Logger() {
     return {
         "promp" : function()        { return date_to_string(new Date()); },
-        "log"   : function(message) { console.log(this.promp() + " - " + message); },
-        "info"  : function(message) { this.log("INFO - "  + message); },
-        "debug" : function(message) { this.log("DEBUG - " + message); },
-        "warn"  : function(message) { this.log("WARN - "  + message); },
-        "error" : function(message) { this.log("ERROR - " + message); }
+        "log"   : function(message, args) {
+            var args = [].slice.call(arguments, 1);
+            console.log(format("%s - %s", this.promp(), format(message, args)));
+        },
+        "info"  : function(message, args) { this.log(format("INFO - %s",  message), args); },
+        "debug" : function(message, args) { this.log(format("DEBUG - %s", message), args); },
+        "warn"  : function(message, args) { this.log(format("WARN - %s",  message), args); },
+        "error" : function(message, args) { this.log(format("INFO - %s",  message), args); }
     };
 }
 
 function date_to_string(date) { return date.toISOString().replace(/T/, ' ').replace(/\..+/, ''); }
 
+function format(str) {
+    var args = [].slice.call(arguments, 1), i = 0;
+    return str.replace(/%s/g, function() { return args[i++]; });
+}
 
 //-----------------------------------------------------------------------------
 // Exports
@@ -59,3 +64,4 @@ exports.Request = Request;
 exports.Map = Map;
 exports.Logger = Logger;
 exports.date_to_string = date_to_string;
+exports.format = format;
