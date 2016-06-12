@@ -1,9 +1,9 @@
 //-----------------------------------------------------------------------------
 // Requires
 //-----------------------------------------------------------------------------
-var server  = require("./server");
-var router  = require("./router");
-var common  = require("./common");
+var server  = require("./libs/server");
+var router  = require("./libs/router");
+var common  = require("./libs/common");
 var view    = require("./view");
 var process = require("child_process");
 
