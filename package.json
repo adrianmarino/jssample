@@ -1,5 +1,5 @@
 {
-    "name": "example-application",
+    "name": "example-app",
     "version": "0.0.1",
     "author": {
         "name": "Adrian Norberto Marino",
@@ -9,7 +9,7 @@
         "type": "git",
         "url": "http://github.com/adrianmarino/example-app"
     },
-    "description": "An example application",
+    "description": "An example nodejs application",
     "dependencies": {
     },
     "license": "MIT",

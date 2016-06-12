@@ -42,3 +42,4 @@ router.handle("get", "/sleep", function(request, response) {
 // Main
 //-----------------------------------------------------------------------------
 server.run(router);
+common.exist_message("Bye Bye!");

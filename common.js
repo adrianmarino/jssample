@@ -2,6 +2,7 @@
 // Requires
 //-----------------------------------------------------------------------------
 var url = require("url");
+var process = require("process");
 
 
 //-----------------------------------------------------------------------------
@@ -57,6 +58,13 @@ function format(str) {
     return str.replace(/%s/g, function() { return args[i++]; });
 }
 
+function exist_message(message) {
+    process.on('SIGINT', function() {
+        console.log(format("\n%s", message));
+        process.exit();
+    });
+}
+
 //-----------------------------------------------------------------------------
 // Exports
 //-----------------------------------------------------------------------------
@@ -65,3 +73,4 @@ exports.Map = Map;
 exports.Logger = Logger;
 exports.date_to_string = date_to_string;
 exports.format = format;
+exports.exist_message = exist_message;

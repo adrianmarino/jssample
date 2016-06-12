@@ -40,7 +40,7 @@ function print_routes() {
 function hasntUris() { return function(method, uris) { return uris.isEmpty() }; }
 
 function print_handlers() {
-    return function(method, uris) { uris.forEach(function(uri) { logger.info("--> " + method + " " + uri); }); };
+    return function(method, uris) { uris.forEach(function(uri) { logger.info("   --> " + method + " " + uri); }); };
 }
 
 function find_handler(request) {
