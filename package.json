@@ -16,7 +16,7 @@
     },
     "license": "MIT",
     "scripts": {
-        "start": "node app.js",
+        "app": "node app.js",
         "tests": "mocha --recursive"
     }
 }
