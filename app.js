@@ -4,7 +4,7 @@
 var server  = require("./lib/server");
 var routers = require("./lib/router");
 var common  = require("./lib/common");
-var view    = require("./view");
+var view    = require("./lib/view");
 var process = require("child_process");
 
 
@@ -39,7 +39,7 @@ routers.add("get", "/sleep", function(request, response) {
 });
 
 routers.add("get", "/index", function(request, response) {
-    response.write(view.create_note({action: "/note"}));
+    response.write(view.get("index"));
     response.end();
 });
 
