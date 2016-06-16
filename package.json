@@ -11,9 +11,12 @@
     },
     "description": "An example nodejs application",
     "dependencies": {
+        "mocha": "2.5.3",
+        "chai":"3.5.0"
     },
     "license": "MIT",
     "scripts": {
-        "start": "node app.js"
+        "start": "node app.js",
+        "tests": "mocha --recursive"
     }
 }

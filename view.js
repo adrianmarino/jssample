@@ -9,12 +9,10 @@ function create_note(params) {
             '<body>'+
                 '<form action="' + params["action"] +'" method="post">'+
                     '<div style="padding-bottom: 12px;">' +
-                        '<label for="author">Author</label></br>' +
-                        '<input type="text" name="author" size="60" style="border-style:groove"></imput>'+
+                        '<input autofocus placeholder="An author name..." type="text" name="author" size="60" style="border-style:groove"></imput>'+
                     '</div>' +
                     '<div>' +
-                        '<label for="note">Note</label></br>' +
-                        '<textarea name="note" rows="10" cols="60" style="border-style:groove"></textarea>'+
+                        '<textarea placeholder="Add a note..." name="note" rows="10" cols="60" style="border-style:groove"></textarea>'+
                     '</div>' +
                     '</br>' +
                     '<div>' +
